@@ -8,7 +8,8 @@ It is designed to be easily (as possible) moved to epiphany modules.
 
 One of the element of CBS is private aks cluster.
 
-It has no public IP address so to get to it we have to be in private network. We can achieve that by running our code from virtual machine in (peered) VNET or from localhost by connecting through VPN.
+It has no public IP address so to get to it we have to be in private network.
+We can achieve that by running our code from virtual machine in (peered) VNET or from localhost by connecting through VPN.
 
 ### Virtual machine for running code
 
@@ -40,6 +41,7 @@ terraform apply #type yes
 In output you get public IP of created VM. Please login to it as user: `azureuser`. Its ssh key is your public key taken from `~/.ssh/id_rsa.pub` if you don't have such key please create one.
 
 In output you will get also 3 another lines which we will use later:
+
 ```shell
 vm_rg_name = ""
 vm_vnet_id = ""
@@ -54,20 +56,22 @@ Creation of this is out of CBS scope but below you can find directions which all
 
 In this case you have to properly configure peering.
 In the VPN VNET peering you have to set below setting:
-```
+
+```text
 Traffic to remote virtual network: Allow (default)
 Traffic forwarded from remote virtual network: Allow (default)
 Virtual network gateway: Use this virtual network's gateway
 ```
+
 In the AKS VNET  peering you have to set below setting:
-```
+
+```text
 Traffic to remote virtual network: Allow (default)
 Traffic forwarded from remote virtual network: Allow (default)
 Virtual network gateway: Use the remote virtual network's gateway
 ```
 
 In terraform code inside peering module this is already set.
-
 
 ## Create Azure credentials
 
@@ -87,12 +91,13 @@ az ad sp create-for-rbac --scopes="/subscriptions/${SUBSCRIPTION_ID}" --name="${
 
 Please, keep the output of the last command in safe place.
 
-Also after creation of your credentials please go to ADD -> App registrations -> your_credentials -> Manifest and ensure you have below value:
-```
-	"groupMembershipClaims": "All",
+Also after creation of your credentials please go to Azure AD -> App registrations -> {your_credentials} -> Manifest and ensure you have below value:
+
+```text
+"groupMembershipClaims": "All",
 ```
 
-Otherwise integration between ArgoCD and AAD will not work.
+Otherwise integration between ArgoCD and Azure AD will not work.
 
 ## Install CBS itself
 
@@ -103,7 +108,8 @@ cd build-system/technical/sources/terraform/envs/prod
 terraform init
 ```
 
-### Terraform remote state 
+### Terraform remote state
+
 This step is optional but highly recommended to use it.
 
 Terraform state can be keep remotely in azurerm backend.
@@ -154,12 +160,14 @@ domain           = \"your.domain\"
 ```
 
 Also please paste 3 below lines (with proper values) from output of VM creation into file `terraform.tfvars`:
+
 ```shell
 echo """vm_rg_name = \"your_rg_name\"
 vm_vnet_id = \"your_vnet_id\"
 vm_vnet_name = \"your_vnet_name\"
 """ >> terraform.tfvars
 ```
+
 ### Azure credentials
 
 Terraform should be run as a service principal which was created especially for that and has proper permissions in the subscription.
@@ -184,17 +192,20 @@ terraform apply #type yes
 After some time terraform will fail.
 Depending from which machine you're running terraform you will meet different issues.
 If you're running it from localhost you have to configure VPN client now.
-In both cases - until we do not resolve feature/issue with DNS private zones - you have to update your `/etc/hosts` file. To determine values which should be put there please run below script, and put exact resource group name and kubernetes host in below format:
+In both cases - until we do not resolve feature/issue with DNS private zones - you have to update your `/etc/hosts` file.
+To determine values which should be put there please run below script, and put exact resource group name and kubernetes host in below format:
 
 ```shell
 ../../modules/k8s/arecord.sh your-k8s-rg-name https://your-cluster-dns.some_hash.privatelink.region.azmk8s.io:443
 ```
 
 In output you should get something like that:
+
 ```shell script
 sudo sh -c 'echo "10.10.4.1 your-cluster-dns.some_hash.privatelink.region.azmk8s.io" >> /etc/hosts'
 ```
-please paste this to command line and type your password.
+
+And please paste this to command line and type your password.
 
 After that run once again:
 
