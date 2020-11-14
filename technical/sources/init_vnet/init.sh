@@ -1,10 +1,10 @@
 #!/bin/bash
 
-#Instal az link from official microsoft page
+# Instal az link from official microsoft page
 # https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-apt
 curl -fsL https://aka.ms/InstallAzureCLIDeb | sudo bash
 
-#Install kubectl
+# Install kubectl
 curl -fLO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
 chmod +x ./kubectl
 mv ./kubectl /usr/local/bin/kubectl

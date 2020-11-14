@@ -6,7 +6,6 @@ variable location {
   type = string
 }
 
-#---BASIC
 variable "address_space" {
   type = list
 }
