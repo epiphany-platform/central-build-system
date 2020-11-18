@@ -32,6 +32,7 @@ resource "kubernetes_ingress" "argocd_ingress" {
       secret_name = var.nginx_secret
     }
   }
+  lifecycle { ignore_changes = [spec] }
 }
 
 resource "kubernetes_secret" "argocd_def_secret" {
@@ -44,8 +45,10 @@ resource "kubernetes_secret" "argocd_def_secret" {
     "tls.crt" = tls_self_signed_cert.cert.cert_pem
     "tls.key" = tls_private_key.key.private_key_pem
   }
+  lifecycle { ignore_changes = [data] }
 }
 
+# Only initial creation after that it will be manged by argocd itself
 resource "kubernetes_config_map" "argocd_cm" {
   metadata {
     name      = "argocd-cm"
@@ -71,4 +74,5 @@ requestedScopes:
 EOF
     "url"         = "https://${var.domain}"
   }
+  lifecycle { ignore_changes = [data] }
 }

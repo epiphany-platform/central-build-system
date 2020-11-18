@@ -18,6 +18,7 @@ resource "kubernetes_secret" "tekton_def_secret" {
     "tls.crt" = tls_self_signed_cert.cert.cert_pem
     "tls.key" = tls_private_key.key.private_key_pem
   }
+  lifecycle { ignore_changes = [data] }
 }
 
 resource "kubernetes_ingress" "tekton_ingress" {
@@ -48,4 +49,5 @@ resource "kubernetes_ingress" "tekton_ingress" {
       secret_name = var.nginx_secret
     }
   }
+  lifecycle { ignore_changes = [spec] }
 }

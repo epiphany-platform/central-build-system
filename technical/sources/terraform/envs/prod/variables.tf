@@ -69,3 +69,5 @@ variable "argo_prefix" {}
 variable "tekton_prefix" {}
 
 variable "domain" {}
+
+variable "tekton_operator_container" {}

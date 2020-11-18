@@ -20,6 +20,8 @@ variable "tenant_id" {}
 
 variable "client_id" {}
 
+variable "tekton_operator_container" {}
+
 variable "argocd_ns" {
   default = "argocd"
 }

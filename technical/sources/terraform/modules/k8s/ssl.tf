@@ -15,4 +15,5 @@ resource "tls_self_signed_cert" "cert" {
     common_name  = "CBS"
     organization = "Epiphany"
   }
+  lifecycle { ignore_changes = all }
 }
