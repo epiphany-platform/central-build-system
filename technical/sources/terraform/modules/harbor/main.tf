@@ -26,12 +26,7 @@ resource "helm_release" "harbor" {
   ]
 
   set {
-    name  = "expose.tls.certSource"
-    value = (var.tls_secret_name != "" ? "secret" : "auto")
-  }
-
-  set {
-    name  = "expose.tls.secret.secretName"
+    name  = "expose.tls.secretName"
     value = var.tls_secret_name
   }
 
