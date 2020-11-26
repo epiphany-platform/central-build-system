@@ -28,6 +28,7 @@ resource "kubernetes_ingress" "tekton_ingress" {
       "nginx.ingress.kubernetes.io/backend-protocol"   = "HTTPS"
       "nginx.ingress.kubernetes.io/force-ssl-redirect" = "true"
       "nginx.ingress.kubernetes.io/ssl-passthrough"    = "true"
+      "nginx.org/websocket-services"                   = "tekton-dashboard"
     }
     name      = "tekton-ingress"
     namespace = kubernetes_namespace.tekton_ns.metadata[0].name

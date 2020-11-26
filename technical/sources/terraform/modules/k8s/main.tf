@@ -50,6 +50,14 @@ resource "null_resource" "nginx_ingress" {
   depends_on = [null_resource.kube_config_create]
 }
 
+resource "null_resource" "tekton-triggers" {
+  provisioner "local-exec" {
+    command = "kubectl apply --kubeconfig tf_kubeconfig -f ../../modules/k8s/manifests/tekton-triggers.yaml"
+  }
+
+  depends_on = [null_resource.kube_config_create]
+}
+
 resource "null_resource" "operator" {
   provisioner "local-exec" {
     command = "cat <<EOF | kubectl apply -f - \n${templatefile("${path.module}/manifests/operator.tmpl", {OPERATOR_CONTAINER = var.tekton_operator_container})}"
