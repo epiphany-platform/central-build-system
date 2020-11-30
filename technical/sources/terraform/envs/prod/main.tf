@@ -58,3 +58,12 @@ module "k8s" {
 
   tekton_operator_container = var.tekton_operator_container
 }
+
+module "harbor" {
+  source = "../../modules/harbor"
+
+  rg_name              = module.basic.rg_name
+  url                  = "${var.harbor_prefix}.${var.domain}"
+  tls_secret_name      = var.harbor_tls_secret_name
+  storage_account_name = var.harbor_storage_account_name
+}
