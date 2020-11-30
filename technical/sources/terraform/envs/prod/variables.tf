@@ -71,3 +71,15 @@ variable "tekton_prefix" {}
 variable "domain" {}
 
 variable "tekton_operator_container" {}
+
+variable "harbor_prefix" {}
+
+variable "harbor_tls_secret_name" {
+  type        = string
+  description = "Kubernetes secret name which stores TLS certificate for domain"
+}
+
+variable "harbor_storage_account_name" {
+  type        = string
+  description = "Unique name across Azure for storage account"
+}

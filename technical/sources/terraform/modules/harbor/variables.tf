@@ -3,27 +3,32 @@ variable "rg_name" {
   description = "Existing resource group name"
 }
 
+variable "storage_account_name" {
+  type        = string
+  description = "Unique name across Azure for storage account"
+}
+
 variable "location" {
-  type = string
+  type    = string
   default = "West Europe"
 }
 
 variable "project_name" {
-  type = string
+  type    = string
   default = "cbs-harbor"
 }
 
 variable "namespace" {
+  type    = string
   default = "harbor"
-  type = string
 }
 
 variable "tls_secret_name" {
+  type    = string
   default = ""
-  type = string
 }
 
 variable "url" {
+  type    = string
   default = "core.harbor.domain"
-  type = string
 }

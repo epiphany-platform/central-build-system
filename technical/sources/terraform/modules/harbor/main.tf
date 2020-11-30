@@ -1,33 +1,35 @@
 resource "azurerm_storage_account" "harbor_storage" {
-  name                     = "harborcbsstorage"
+  name                     = var.storage_account_name
   resource_group_name      = var.rg_name
   location                 = var.location
   account_tier             = "Standard"
-  account_replication_type = "GRS"
+  account_replication_type = "LRS"
 }
 
-resource "azurerm_storage_container" "example" {
+resource "azurerm_storage_container" "harbor_container" {
   name                  = "vhds"
   storage_account_name  = azurerm_storage_account.harbor_storage.name
   container_access_type = "private"
 }
 
 resource "helm_release" "harbor" {
+  name       = "harbor"
+  repository = "https://helm.goharbor.io"
+  chart      = "harbor"
+  version    = "1.3.6"
 
-  name = "harbor"
-  namespace = var.namespace
+  namespace        = var.namespace
   create_namespace = true
-
-  timeout = 900
-
-  chart = "${path.module}/chart"
-  values = [
-    file("${path.module}/chart/values.yaml")
-  ]
+  timeout          = 900
 
   set {
     name  = "expose.tls.secretName"
     value = var.tls_secret_name
+  }
+
+  set {
+    name  = "externalURL"
+    value = "https://${var.url}"
   }
 
   set {
@@ -41,8 +43,8 @@ resource "helm_release" "harbor" {
   }
 
   set {
-    name  = "externalURL"
-    value = "https://${var.url}"
+    name = "expose.ingress.annotations.nginx\\.org/client-max-body-size"
+    value = "\"0\""
   }
 
   set {
@@ -62,7 +64,7 @@ resource "helm_release" "harbor" {
 
   set {
     name  = "persistence.imageChartStorage.azure.container"
-    value = azurerm_storage_container.example.name
+    value = azurerm_storage_container.harbor_container.name
   }
 
   set {
