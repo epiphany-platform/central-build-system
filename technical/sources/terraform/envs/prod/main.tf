@@ -13,14 +13,15 @@ module "basic" {
 module "aks" {
   source = "../../modules/aks"
 
-  name             = var.project_name
-  rg_name          = module.basic.rg_name
-  location         = var.location
-  subnet_id        = module.basic.subnet_id
-  client_id        = var.client_id
-  client_secret    = var.client_secret
-  tenant_id        = var.tenant_id
-  aad_admin_groups = var.aad_admin_groups
+  name                         = var.project_name
+  rg_name                      = module.basic.rg_name
+  location                     = var.location
+  subnet_id                    = module.basic.subnet_id
+  client_id                    = var.client_id
+  client_secret                = var.client_secret
+  tenant_id                    = var.tenant_id
+  aad_admin_groups             = var.aad_admin_groups
+  default_node_pool_max_number = var.max_aks_nodes_number
 }
 
 module "peering" {

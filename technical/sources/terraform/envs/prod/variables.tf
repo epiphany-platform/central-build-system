@@ -38,6 +38,11 @@ variable "tenant_id" {
   type = string
 }
 
+variable "max_aks_nodes_number" {
+  type = number
+  default = 2
+}
+
 variable "aad_admin_groups" {
   type        = list
   description = "Pass empty if no integration needed"
