@@ -1,5 +1,5 @@
 resource "tls_private_key" "key" {
-  algorithm = "${var.tls_key_algorithm}"
+  algorithm = var.tls_key_algorithm
 }
 
 resource "tls_self_signed_cert" "cert" {

@@ -3,7 +3,7 @@ resource "null_resource" "kube_config_create" {
     command = "echo \"${var.kubeconfig}\" > tf_kubeconfig"
   }
   triggers = {
-    always_run = "${timestamp()}"
+    always_run = timestamp()
   }
 }
 
@@ -68,12 +68,12 @@ resource "null_resource" "operator" {
 
 resource "null_resource" "kube_config_destroy" {
   provisioner "local-exec" {
-    command = "sleep 10 && rm tf_kubeconfig"
+    command = "rm tf_kubeconfig"
   }
 
   triggers = {
-    always_run = "${timestamp()}"
+    always_run = timestamp()
   }
 
-  depends_on = [null_resource.argocd, null_resource.tekton_crd]
+  depends_on = [null_resource.argocd, null_resource.tekton_crd, null_resource.kube_config_create]
 }
