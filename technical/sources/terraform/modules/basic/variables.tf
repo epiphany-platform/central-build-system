@@ -15,13 +15,18 @@ variable "location" {
 }
 
 variable "address_space" {
-  type = list(string)
+  type = string
 }
 
-variable "address_prefixes" {
-  type = list(string)
-}
+#variable "address_prefixes" {
+#  type = list(string)
+#}
 
 variable "rsa_pub_path" {
   type = string
+}
+
+variable "bits_for_subnets" {
+  type    = number
+  default = 1
 }
