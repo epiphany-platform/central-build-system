@@ -34,3 +34,7 @@ variable "harbor_prefix" {
   default = "harbor"  
 }
 
+variable "notary_prefix" {
+  type    = string
+  default = "notary"  
+}

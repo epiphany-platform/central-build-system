@@ -24,22 +24,27 @@ resource "helm_release" "harbor" {
 
   set {
     name  = "expose.tls.secretName"
-    value = var.tls_secret_name
+    value = var.harbor_tls_secret_name
+  }
+
+  set {
+    name  = "expose.tls.notarySecretName"
+    value = var.notary_tls_secret_name
   }
 
   set {
     name  = "externalURL"
-    value = "https://${var.url}"
-  }
-
-  set {
-    name  = "notary.enabled"
-    value = "false"
+    value = "https://${var.harbor_url}"
   }
 
   set {
     name  = "expose.ingress.hosts.core"
-    value = var.url
+    value = var.harbor_url
+  }
+
+  set {
+    name  = "expose.ingress.hosts.notary"
+    value = var.notary_url
   }
 
   set {
