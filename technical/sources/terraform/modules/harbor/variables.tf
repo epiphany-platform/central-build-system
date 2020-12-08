@@ -23,12 +23,22 @@ variable "namespace" {
   default = "harbor"
 }
 
-variable "tls_secret_name" {
+variable "harbor_tls_secret_name" {
   type    = string
-  default = ""
+  default = "harbor-tls"
 }
 
-variable "url" {
+variable "notary_tls_secret_name" {
+  type    = string
+  default = "notary-tls"
+}
+
+variable "harbor_url" {
   type    = string
   default = "core.harbor.domain"
+}
+
+variable "notary_url" {
+  type    = string
+  default = "notary.harbor.domain"
 }
