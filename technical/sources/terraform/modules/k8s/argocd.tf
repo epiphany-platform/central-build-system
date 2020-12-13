@@ -7,7 +7,7 @@ resource "kubernetes_namespace" "argocd_ns" {
 resource "kubernetes_ingress" "argocd_ingress" {
   metadata {
     annotations = {
-      "kubernetes.io/ingress.class" = "azure/application-gateway"
+      "kubernetes.io/ingress.class"                = "azure/application-gateway"
       "appgw.ingress.kubernetes.io/use-private-ip" = "true"
     }
     name      = var.argocd_ingress

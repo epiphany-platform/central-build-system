@@ -28,12 +28,12 @@ resource "kubernetes_cluster_role_binding" "appgw-cluster-admin" {
   }
   role_ref {
     api_group = "rbac.authorization.k8s.io"
-    kind = "ClusterRole"
-    name = "cluster-admin"
+    kind      = "ClusterRole"
+    name      = "cluster-admin"
   }
   subject {
-    kind = "ServiceAccount"
-    name = "ingress-azure"
+    kind      = "ServiceAccount"
+    name      = "ingress-azure"
     namespace = "default"
   }
 }

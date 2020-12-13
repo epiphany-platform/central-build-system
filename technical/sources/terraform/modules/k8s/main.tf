@@ -52,7 +52,7 @@ resource "null_resource" "tekton-triggers" {
 
 resource "null_resource" "operator" {
   provisioner "local-exec" {
-    command = "cat <<EOF | kubectl apply --kubeconfig tf_kubeconfig -f - \n${templatefile("${path.module}/manifests/operator.tmpl", {OPERATOR_CONTAINER = var.tekton_operator_container})}"
+    command = "cat <<EOF | kubectl apply --kubeconfig tf_kubeconfig -f - \n${templatefile("${path.module}/manifests/operator.tmpl", { OPERATOR_CONTAINER = var.tekton_operator_container })}"
   }
 
   depends_on = [null_resource.kube_config_create]

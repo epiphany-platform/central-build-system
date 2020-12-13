@@ -24,7 +24,7 @@ resource "kubernetes_secret" "tekton_def_secret" {
 resource "kubernetes_ingress" "tekton_ingress" {
   metadata {
     annotations = {
-      "kubernetes.io/ingress.class" = "azure/application-gateway"
+      "kubernetes.io/ingress.class"                = "azure/application-gateway"
       "appgw.ingress.kubernetes.io/use-private-ip" = "true"
     }
     name      = "tekton-ingress"
