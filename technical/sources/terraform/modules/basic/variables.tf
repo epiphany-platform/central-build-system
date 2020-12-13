@@ -18,10 +18,6 @@ variable "address_space" {
   type = string
 }
 
-#variable "address_prefixes" {
-#  type = list(string)
-#}
-
 variable "rsa_pub_path" {
   type = string
 }
