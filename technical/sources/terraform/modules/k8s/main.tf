@@ -42,14 +42,6 @@ resource "null_resource" "tekton_global_dashboard" {
   depends_on = [null_resource.kube_config_create]
 }
 
-resource "null_resource" "nginx_ingress" {
-  provisioner "local-exec" {
-    command = "kubectl --kubeconfig tf_kubeconfig apply -f ../../modules/k8s/manifests/ingress.yaml"
-  }
-
-  depends_on = [null_resource.kube_config_create]
-}
-
 resource "null_resource" "tekton-triggers" {
   provisioner "local-exec" {
     command = "kubectl apply --kubeconfig tf_kubeconfig -f ../../modules/k8s/manifests/tekton-triggers.yaml"
@@ -60,7 +52,7 @@ resource "null_resource" "tekton-triggers" {
 
 resource "null_resource" "operator" {
   provisioner "local-exec" {
-    command = "cat <<EOF | kubectl apply -f - \n${templatefile("${path.module}/manifests/operator.tmpl", {OPERATOR_CONTAINER = var.tekton_operator_container})}"
+    command = "cat <<EOF | kubectl apply --kubeconfig tf_kubeconfig -f - \n${templatefile("${path.module}/manifests/operator.tmpl", {OPERATOR_CONTAINER = var.tekton_operator_container})}"
   }
 
   depends_on = [null_resource.kube_config_create]
@@ -75,5 +67,5 @@ resource "null_resource" "kube_config_destroy" {
     always_run = timestamp()
   }
 
-  depends_on = [null_resource.argocd, null_resource.tekton_crd, null_resource.kube_config_create]
+  depends_on = [null_resource.argocd, null_resource.tekton_crd, null_resource.kube_config_create, null_resource.install_ingress_controller, null_resource.operator]
 }

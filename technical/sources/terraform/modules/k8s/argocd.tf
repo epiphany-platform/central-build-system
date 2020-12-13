@@ -7,10 +7,8 @@ resource "kubernetes_namespace" "argocd_ns" {
 resource "kubernetes_ingress" "argocd_ingress" {
   metadata {
     annotations = {
-      "kubernetes.io/ingress.class"                    = "nginx"
-      "nginx.ingress.kubernetes.io/backend-protocol"   = "HTTPS"
-      "nginx.ingress.kubernetes.io/force-ssl-redirect" = "true"
-      "nginx.ingress.kubernetes.io/ssl-passthrough"    = "true"
+      "kubernetes.io/ingress.class" = "azure/application-gateway"
+      "appgw.ingress.kubernetes.io/use-private-ip" = "true"
     }
     name      = var.argocd_ingress
     namespace = kubernetes_namespace.argocd_ns.metadata[0].name
@@ -32,7 +30,6 @@ resource "kubernetes_ingress" "argocd_ingress" {
       secret_name = var.nginx_secret
     }
   }
-  lifecycle { ignore_changes = [spec] }
 }
 
 resource "kubernetes_secret" "argocd_def_secret" {
@@ -40,7 +37,7 @@ resource "kubernetes_secret" "argocd_def_secret" {
     name      = var.nginx_secret
     namespace = kubernetes_namespace.argocd_ns.metadata[0].name
   }
-  type = "Opaque"
+  type = "kubernetes.io/tls"
   data = {
     "tls.crt" = tls_self_signed_cert.cert.cert_pem
     "tls.key" = tls_private_key.key.private_key_pem

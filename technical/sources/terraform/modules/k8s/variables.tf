@@ -8,7 +8,9 @@ variable "kube_client_key" {}
 
 variable "kube_client_cert" {}
 
-variable "subnet_cidr" {}
+variable "kubernetes_subnet_cidr" {}
+
+variable "appgw_subnet_cidr" {}
 
 variable "domain" {}
 
@@ -21,6 +23,16 @@ variable "tenant_id" {}
 variable "client_id" {}
 
 variable "tekton_operator_container" {}
+
+variable "location" {}
+
+variable "rg_name" {}
+
+variable "name" {}
+
+variable "subnet_id" {}
+
+variable "secretJSON" {}
 
 variable "argocd_ns" {
   default = "argocd"
