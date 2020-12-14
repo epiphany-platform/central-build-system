@@ -6,8 +6,8 @@ module "basic" {
   use_public_ip    = var.use_public_ips
   rsa_pub_path     = var.key_path
   location         = data.azurerm_key_vault_secret.cbs_vault["location"].value
-  address_space    = [ data.azurerm_key_vault_secret.cbs_vault["address-space"].value ]
-  address_prefixes = [ data.azurerm_key_vault_secret.cbs_vault["address-prefixes"].value ]
+  address_space    = data.azurerm_key_vault_secret.cbs_vault["address-space"].value
+  bits_for_subnets = var.bits_for_subnets
 }
 
 module "aks" {
@@ -15,13 +15,13 @@ module "aks" {
 
   name                         = var.project_name
   rg_name                      = module.basic.rg_name
-  subnet_id                    = module.basic.subnet_id
+  subnet_id                    = module.basic.subnet_id[0]
   default_node_pool_max_number = var.max_aks_nodes_number
   location                     = data.azurerm_key_vault_secret.cbs_vault["location"].value
   client_id                    = data.azurerm_key_vault_secret.cbs_vault["client-id"].value
   client_secret                = data.azurerm_key_vault_secret.cbs_vault["client-secret"].value
   tenant_id                    = data.azurerm_key_vault_secret.cbs_vault["tenant-id"].value
-  aad_admin_groups             = [ data.azurerm_key_vault_secret.cbs_vault["aad-admin-groups"].value ]
+  aad_admin_groups             = [data.azurerm_key_vault_secret.cbs_vault["aad-admin-groups"].value]
 }
 
 module "peering" {
@@ -48,20 +48,26 @@ module "k8s" {
   kube_cluster_ca  = module.aks.kube_cluster_ca
   peering_done     = module.peering.peering_done
 
-  subnet_cidr               = data.azurerm_key_vault_secret.cbs_vault["address-space"].value
   argo_prefix               = data.azurerm_key_vault_secret.cbs_vault["argo-prefix"].value
   tekton_prefix             = data.azurerm_key_vault_secret.cbs_vault["tekton-prefix"].value
   domain                    = data.azurerm_key_vault_secret.cbs_vault["domain"].value
   tenant_id                 = data.azurerm_key_vault_secret.cbs_vault["tenant-id"].value
   client_id                 = data.azurerm_key_vault_secret.cbs_vault["client-id"].value
   tekton_operator_container = data.azurerm_key_vault_secret.cbs_vault["tekton-operator-container"].value
+  kubernetes_subnet_cidr    = module.basic.subnet_cidrs[0]
+  location                  = data.azurerm_key_vault_secret.cbs_vault["location"].value
+  name                      = "${var.project_name}-appgw"
+  rg_name                   = module.basic.rg_name
+  subnet_id                 = module.basic.subnet_id[1]
+  appgw_subnet_cidr         = module.basic.subnet_cidrs[1]
+  secretJSON                = data.azurerm_key_vault_secret.cbs_vault["agic-json"].value
 }
 
 module "harbor" {
   source = "../../modules/harbor"
 
-  rg_name                = module.basic.rg_name
-  harbor_url             = "${var.harbor_prefix}.${data.azurerm_key_vault_secret.cbs_vault["domain"].value}"
-  notary_url             = "${var.notary_prefix}.${data.azurerm_key_vault_secret.cbs_vault["domain"].value}"
-  storage_account_name   = data.azurerm_key_vault_secret.cbs_vault["harbor-storage-account-name"].value
+  rg_name              = module.basic.rg_name
+  harbor_url           = "${var.harbor_prefix}.${data.azurerm_key_vault_secret.cbs_vault["domain"].value}"
+  notary_url           = "${var.notary_prefix}.${data.azurerm_key_vault_secret.cbs_vault["domain"].value}"
+  storage_account_name = data.azurerm_key_vault_secret.cbs_vault["harbor-storage-account-name"].value
 }

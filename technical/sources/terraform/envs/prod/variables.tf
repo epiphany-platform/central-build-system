@@ -1,3 +1,4 @@
+### BASIC VARS
 variable project_name {
   type = string
 }
@@ -15,26 +16,29 @@ variable "use_public_ips" {
   type    = bool
 }
 
+variable "bits_for_subnets" {
+  default = 4
+}
+
+### AKS VARS
 variable "max_aks_nodes_number" {
-  type = number
+  type    = number
   default = 2
 }
 
-variable "argocd_ns" {
-  default = "argocd"
-}
-
+### PEERING VARS
 variable "peering" {
   type    = bool
   default = true
 }
 
+### HARVOR VARS
 variable "harbor_prefix" {
   type    = string
-  default = "harbor"  
+  default = "harbor"
 }
 
 variable "notary_prefix" {
   type    = string
-  default = "notary"  
+  default = "notary"
 }
