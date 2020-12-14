@@ -1,12 +1,12 @@
 data "azurerm_key_vault" "cbs" {
-  name                = "cbs-prod" //var.keyvault_name
+  name                = "cbs-prod"     //var.keyvault_name
   resource_group_name = "cbs-tools-rg" //var.keyvault_rg
 }
 
 data "azurerm_key_vault_secret" "cbs_vault" {
-  for_each = toset( [
+  for_each = toset([
     "address-space",
-    "address-prefixes",
+    "agic-json",
     "location",
     "client-id",
     "client-secret",
@@ -23,6 +23,6 @@ data "azurerm_key_vault_secret" "cbs_vault" {
     "harbor-tls-secret-name",
     "harbor-storage-account-name"
   ])
-  name = each.value
+  name         = each.value
   key_vault_id = data.azurerm_key_vault.cbs.id
 }

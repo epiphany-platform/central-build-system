@@ -69,7 +69,7 @@ requestedScopes:
   - profile
   - email
 EOF
-    "url"         = "https://${var.domain}"
+    "url"         = "https://${var.argo_prefix}.${var.domain}"
   }
   lifecycle { ignore_changes = [data] }
 }

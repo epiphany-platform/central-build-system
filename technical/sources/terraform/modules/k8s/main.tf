@@ -67,5 +67,5 @@ resource "null_resource" "kube_config_destroy" {
     always_run = timestamp()
   }
 
-  depends_on = [null_resource.argocd, null_resource.tekton_crd, null_resource.kube_config_create, null_resource.install_ingress_controller, null_resource.operator]
+  depends_on = [null_resource.argocd, null_resource.tekton_crd, null_resource.kube_config_create, null_resource.operator]
 }
