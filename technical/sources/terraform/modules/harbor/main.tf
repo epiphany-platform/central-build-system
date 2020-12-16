@@ -47,9 +47,22 @@ resource "helm_release" "harbor" {
     value = var.notary_url
   }
 
+  # CBS use Azure application gateway for ingress but its path routing schema is compatible with GCE.
+  # Harbor helm chart that we are using, do not support Azure appgw therefore we set GCE here in order
+  # to chose correct routing paths in ingress controller. 
   set {
-    name = "expose.ingress.annotations.nginx\\.org/client-max-body-size"
-    value = "\"0\""
+    name = "expose.ingress.controller"
+    value = "gce"
+  }
+
+  set {
+    name  = "expose.ingress.annotations.kubernetes\\.io/ingress\\.class"
+    value = "azure/application-gateway"
+  }
+
+  set {
+    name  = "expose.ingress.annotations.appgw\\.ingress\\.kubernetes\\.io/use-private-ip"
+    value = "\"true\""
   }
 
   set {
