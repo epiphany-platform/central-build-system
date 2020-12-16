@@ -30,7 +30,11 @@ variable "rg_name" {}
 
 variable "name" {}
 
+variable "name_pub" {}
+
 variable "subnet_id" {}
+
+variable "subnet_id_pub" {}
 
 variable "secretJSON" {}
 
