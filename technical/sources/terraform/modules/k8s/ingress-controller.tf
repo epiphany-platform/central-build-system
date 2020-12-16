@@ -22,11 +22,6 @@ resource "helm_release" "agic" {
   }
 
   set {
-    name = "appgw.usePrivateIP"
-    value = "true"
-  }
-
-  set {
     name = "appgw.shared"
     value = "false"
   }
