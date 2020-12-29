@@ -58,6 +58,14 @@ resource "null_resource" "operator" {
   depends_on = [null_resource.kube_config_create]
 }
 
+resource "null_resource" "nginx_ingress" {
+  provisioner "local-exec" {
+    command = "kubectl --kubeconfig tf_kubeconfig apply -f ../../modules/k8s/manifests/nginx-ingress.yaml"
+  }
+
+  depends_on = [null_resource.kube_config_create]
+}
+
 resource "null_resource" "kube_config_destroy" {
   provisioner "local-exec" {
     command = "rm tf_kubeconfig"
@@ -67,5 +75,5 @@ resource "null_resource" "kube_config_destroy" {
     always_run = timestamp()
   }
 
-  depends_on = [null_resource.argocd, null_resource.tekton_crd, null_resource.kube_config_create, null_resource.operator]
+  depends_on = [null_resource.argocd, null_resource.tekton_crd, null_resource.tekton-triggers, null_resource.kube_config_create, null_resource.operator, null_resource.nginx_ingress]
 }

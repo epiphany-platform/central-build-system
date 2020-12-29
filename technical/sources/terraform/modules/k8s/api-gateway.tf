@@ -3,14 +3,16 @@ locals {
   http_setting_name                  = "http_setting_name"
   frontend_ip_configuration_name     = "listener"
   frontend_port_name                 = "https"
+  frontend_priv_pub_ip_configuration_name     = "listener_priv_pub"
+  frontend_priv_pub_port_name                 = "https"
   frontend_pub_ip_configuration_name = "listener_pub"
   frontend_pub_port_name             = "https_pub"
 }
 
-resource "azurerm_public_ip" "app_gw_pub_ip" {
+resource "azurerm_public_ip" "app_gw_pub_ip_priv" {
   allocation_method   = "Static"
   location            = var.location
-  name                = "${var.name}-pub_ip"
+  name                = "${var.name}-pub_ip_priv"
   resource_group_name = var.rg_name
   sku                 = "Standard"
 }
@@ -25,13 +27,13 @@ resource "azurerm_application_gateway" "api_gw" {
   }
 
   frontend_ip_configuration {
-    name                 = local.frontend_pub_ip_configuration_name
-    public_ip_address_id = azurerm_public_ip.app_gw_pub_ip.id
+    name                 = local.frontend_priv_pub_ip_configuration_name
+    public_ip_address_id = azurerm_public_ip.app_gw_pub_ip_priv.id
   }
 
   frontend_port {
-    name = local.frontend_pub_port_name
-    port = 443
+    name = local.frontend_priv_pub_port_name
+    port = 80
   }
 
   frontend_ip_configuration {

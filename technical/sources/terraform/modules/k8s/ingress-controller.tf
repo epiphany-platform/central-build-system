@@ -7,6 +7,11 @@ resource "helm_release" "agic" {
   version = "1.3.0"
 
   set {
+    name = "usePrivateIP"
+    value = "true"
+  }
+
+  set {
     name = "appgw.subscriptionId"
     value = data.azurerm_subscription.current.subscription_id
   }
@@ -40,11 +45,12 @@ resource "helm_release" "agic" {
     name = "rbac.enable"
     value = "false"
   }
+
 }
 
 resource "kubernetes_cluster_role_binding" "appgw-cluster-admin" {
   metadata {
-    name = "appgw-cluster-admon"
+    name = "appgw-cluster-admin"
   }
   role_ref {
     api_group = "rbac.authorization.k8s.io"
