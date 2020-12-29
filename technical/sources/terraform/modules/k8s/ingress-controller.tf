@@ -4,18 +4,13 @@ resource "helm_release" "agic" {
   name = "ingress-azure"
   chart = "ingress-azure"
   repository = "https://appgwingress.blob.core.windows.net/ingress-azure-helm-package/"
-  #repository = "ingress-azure"
   version = "1.3.0"
-
-#  set {
-#    name = "verbosityLevel"
-#    value = "6"
-#  }
 
   set {
     name = "usePrivateIP"
     value = "true"
   }
+
   set {
     name = "appgw.subscriptionId"
     value = data.azurerm_subscription.current.subscription_id
