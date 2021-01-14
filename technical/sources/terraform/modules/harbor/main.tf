@@ -1,17 +1,3 @@
-resource "azurerm_storage_account" "harbor_storage" {
-  name                     = var.storage_account_name
-  resource_group_name      = var.rg_name
-  location                 = var.location
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
-}
-
-resource "azurerm_storage_container" "harbor_container" {
-  name                  = "vhds"
-  storage_account_name  = azurerm_storage_account.harbor_storage.name
-  container_access_type = "private"
-}
-
 resource "helm_release" "harbor" {
   name       = "harbor"
   repository = "https://helm.goharbor.io"
@@ -62,7 +48,8 @@ resource "helm_release" "harbor" {
 
   set {
     name  = "expose.ingress.annotations.appgw\\.ingress\\.kubernetes\\.io/use-private-ip"
-    value = "\"true\""
+    value = "true"
+    type  = "string"
   }
 
   set {
@@ -72,19 +59,18 @@ resource "helm_release" "harbor" {
 
   set {
     name  = "persistence.imageChartStorage.azure.accountname"
-    value = azurerm_storage_account.harbor_storage.name
+    value = var.storage_account_name
   }
 
   set {
     name  = "persistence.imageChartStorage.azure.accountkey"
-    value = azurerm_storage_account.harbor_storage.primary_access_key
+    value = var.storage_primary_access_key
   }
 
   set {
     name  = "persistence.imageChartStorage.azure.container"
-    value = azurerm_storage_container.harbor_container.name
+    value = var.storage_container_name
   }
-
   set {
     name  = "persistence.imageChartStorage.azure.realm"
     value = "core.windows.net"

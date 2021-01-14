@@ -8,9 +8,14 @@ variable "storage_account_name" {
   description = "Unique name across Azure for storage account"
 }
 
-variable "location" {
-  type    = string
-  default = "West Europe"
+variable "storage_primary_access_key" {
+  type        = string
+  description = "Primary access key for storage account"
+}
+
+variable "storage_container_name" {
+  type        = string
+  description = "Container for harbor blobs"
 }
 
 variable "project_name" {
