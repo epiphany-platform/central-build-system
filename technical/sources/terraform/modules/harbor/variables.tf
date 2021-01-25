@@ -1,8 +1,3 @@
-variable "rg_name" {
-  type        = string
-  description = "Existing resource group name"
-}
-
 variable "storage_account_name" {
   type        = string
   description = "Unique name across Azure for storage account"

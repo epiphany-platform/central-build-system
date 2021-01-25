@@ -11,3 +11,41 @@ resource "azurerm_storage_container" "harbor_container" {
   storage_account_name  = azurerm_storage_account.harbor_storage.name
   container_access_type = "private"
 }
+
+resource "azurerm_storage_container" "cbs_backup" {
+  name                  = "cbsbackup"
+  storage_account_name  = azurerm_storage_account.harbor_storage.name
+  container_access_type = "private"
+}
+
+data "azurerm_storage_account_sas" "backup" {
+  connection_string = azurerm_storage_account.harbor_storage.primary_connection_string
+  https_only        = true
+
+  resource_types {
+    service   = false
+    container = false
+    object    = true
+  }
+
+  services {
+    blob  = true
+    queue = false
+    table = false
+    file  = false
+  }
+
+  start  = "2020-01-21"
+  expiry = "2023-01-21"
+
+  permissions {
+    read    = true
+    write   = true
+    delete  = false
+    list    = false
+    add     = true
+    create  = true
+    update  = false
+    process = false
+  }
+}
