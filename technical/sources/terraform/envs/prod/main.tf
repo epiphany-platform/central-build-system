@@ -66,8 +66,10 @@ module "k8s" {
 module "harbor" {
   source = "../../modules/harbor"
 
-  rg_name              = module.basic.rg_name
-  harbor_url           = "${var.harbor_prefix}.${data.azurerm_key_vault_secret.cbs_vault["domain"].value}"
-  notary_url           = "${var.notary_prefix}.${data.azurerm_key_vault_secret.cbs_vault["domain"].value}"
-  storage_account_name = data.azurerm_key_vault_secret.cbs_vault["harbor-storage-account-name"].value
+  rg_name                    = module.basic.rg_name
+  harbor_url                 = "${var.harbor_prefix}.${data.azurerm_key_vault_secret.cbs_vault["domain"].value}"
+  notary_url                 = "${var.notary_prefix}.${data.azurerm_key_vault_secret.cbs_vault["domain"].value}"
+  storage_account_name       = azurerm_storage_account.harbor_storage.name
+  storage_primary_access_key = azurerm_storage_account.harbor_storage.primary_access_key
+  storage_container_name     = azurerm_storage_container.harbor_container.name
 }
