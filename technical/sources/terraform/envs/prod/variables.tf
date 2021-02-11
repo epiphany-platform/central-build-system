@@ -23,7 +23,7 @@ variable "bits_for_subnets" {
 ### AKS VARS
 variable "max_aks_nodes_number" {
   type    = number
-  default = 2
+  default = 10
 }
 
 ### PEERING VARS
