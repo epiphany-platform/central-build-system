@@ -66,10 +66,25 @@ module "k8s" {
 module "harbor" {
   source = "../../modules/harbor"
 
-  rg_name                    = module.basic.rg_name
   harbor_url                 = "${var.harbor_prefix}.${data.azurerm_key_vault_secret.cbs_vault["domain"].value}"
   notary_url                 = "${var.notary_prefix}.${data.azurerm_key_vault_secret.cbs_vault["domain"].value}"
   storage_account_name       = azurerm_storage_account.harbor_storage.name
   storage_primary_access_key = azurerm_storage_account.harbor_storage.primary_access_key
   storage_container_name     = azurerm_storage_container.harbor_container.name
+}
+
+module "cbsbackup" {
+  source = "../../modules/cbsbackup"
+
+  kubeconfig       = module.aks.kubeconfig
+  kube_host        = module.aks.kube_host
+  kube_client_cert = module.aks.kube_client_cert
+  kube_client_key  = module.aks.kube_client_key
+  kube_cluster_ca  = module.aks.kube_cluster_ca
+
+  harbor_namespace = "harbor"
+  argocd_namespace = "argocd"
+  storage_name     = azurerm_storage_account.harbor_storage.name
+  container_name   = azurerm_storage_container.cbs_backup.name
+  sas_token        = data.azurerm_storage_account_sas.backup.sas
 }
