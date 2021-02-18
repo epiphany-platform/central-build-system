@@ -66,6 +66,11 @@ module "k8s" {
 module "harbor" {
   source = "../../modules/harbor"
 
+  kube_host        = module.aks.kube_host
+  kube_client_cert = module.aks.kube_client_cert
+  kube_client_key  = module.aks.kube_client_key
+  kube_cluster_ca  = module.aks.kube_cluster_ca
+
   harbor_url                 = "${var.harbor_prefix}.${data.azurerm_key_vault_secret.cbs_vault["domain"].value}"
   notary_url                 = "${var.notary_prefix}.${data.azurerm_key_vault_secret.cbs_vault["domain"].value}"
   storage_account_name       = azurerm_storage_account.harbor_storage.name

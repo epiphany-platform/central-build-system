@@ -1,3 +1,11 @@
+variable "kube_host" {}
+
+variable "kube_cluster_ca" {}
+
+variable "kube_client_key" {}
+
+variable "kube_client_cert" {}
+
 variable "storage_account_name" {
   type        = string
   description = "Unique name across Azure for storage account"
