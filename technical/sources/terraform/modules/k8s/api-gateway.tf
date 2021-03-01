@@ -87,5 +87,5 @@ resource "azurerm_application_gateway" "api_gw" {
   }
 
   # After creation ingress controller is managing it
-  lifecycle { ignore_changes = ["*"] }
+  lifecycle { ignore_changes = all }
 }
