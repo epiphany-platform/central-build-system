@@ -32,7 +32,7 @@ variable "tenant_id" {
 
 variable "aad_admin_groups" {
   type        = list
-  description = "Pass empty if no integration needed"
+  description = "Leave empty if no integration needed"
 }
 
 variable "default_node_pool_min_number" {
