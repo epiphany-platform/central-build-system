@@ -1,4 +1,8 @@
 ### BASIC VARS
+variable "enviroment" {
+  default = "tst"
+}
+
 variable project_name {
   type = string
 }

@@ -1,6 +1,6 @@
 # How to create Central Build System (CBS)
 
-CBS is created with terraform.
+CBS is created with terraform on MS Azure cloud.
 All needed sources except secrets and [some specific variable values](#Terraform-vars) can be found inside this repo.
 It is designed to be able to be moved to [the epiphany modules](https://github.com/epiphany-platform/epiphany/blob/develop/docs/home/COMPONENTS.md) as easy as possible.
 
@@ -106,7 +106,7 @@ cd build-system/technical/sources/terraform/envs/prod
 terraform init
 ```
 
-### Terraform remote state
+### Terraform state
 
 This step is optional but highly recommended.
 
