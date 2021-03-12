@@ -50,7 +50,7 @@ variable "default_node_pool_max_number" {
 ### Vars with defaults
 variable "dns_prefix" {
   type        = string
-  default     = "cluster-dns"
+  default     = "akscluster-dns"
   description = "dns_prefix"
 }
 
@@ -62,7 +62,7 @@ variable "private_cluster" {
 
 variable "kubernetes_version" {
   type        = string
-  default     = "1.17.13"
+  default     = "1.18.14"
   description = "your kubernetes version"
 }
 

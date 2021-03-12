@@ -13,7 +13,7 @@ module "basic" {
 module "aks" {
   source = "../../modules/aks"
 
-  name                         = var.project_name
+  name                         = "${var.project_name}-aks"
   rg_name                      = module.basic.rg_name
   subnet_id                    = module.basic.subnet_id[0]
   default_node_pool_max_number = var.max_aks_nodes_number
