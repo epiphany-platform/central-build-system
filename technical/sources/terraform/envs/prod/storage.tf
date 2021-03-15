@@ -1,6 +1,6 @@
 resource "azurerm_storage_account" "harbor_storage" {
   name                     = data.azurerm_key_vault_secret.cbs_vault["harbor-storage-account-name"].value
-  resource_group_name      = module.basic.rg_name
+  resource_group_name      = data.azurerm_key_vault_secret.cbs_vault["harbor-storage-rg-name"].value
   location                 = data.azurerm_key_vault_secret.cbs_vault["location"].value
   account_tier             = "Standard"
   account_replication_type = "LRS"

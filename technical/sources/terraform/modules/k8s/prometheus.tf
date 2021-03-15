@@ -24,7 +24,7 @@ resource "helm_release" "prometheus" {
 
   set {
     name  = "prometheus.ingress.hosts[0]"
-    value = "prometheus.cbs.hasops.com"
+    value = "prometheus.${var.domain}"
   }
 
   set {
