@@ -46,3 +46,8 @@ It will be running in separate namespace with restricted access - for admins onl
 
 Permissions for ArgoCD are managed by Argo itself.
 It will be integrated with Azure Active Directory.
+
+
+## Installation manual
+
+Installation and setup instructions are covered by this [document](CBS_HOWTO.md).
