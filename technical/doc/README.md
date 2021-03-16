@@ -134,7 +134,11 @@ cd build-system/technical/sources/terraform/
 terraform init
 ```
 
-The `backend.tf` file is ignored by git already so you do not have to worry that you will commit it by accident.<br><br>
+The `backend.tf` file is ignored by git already so you do not have to worry that you will commit it by accident.<br>
+If the storage account already exists ( which is most likely the case if you've already created another enviroments ) 
+to be managed via Terraform this resource needs to be imported into the State file with this command:
+```terraform import azurerm_storage_account.harbor_storage <account_it>```
+<br><br>
 
 ### Terraform vars
 
