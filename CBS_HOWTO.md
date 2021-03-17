@@ -1,6 +1,6 @@
 # How to create Central Build System (CBS)
 
-  - [Peered VNET for access to private cluster](#peered-vnet-for-access-to-private-cluster)
+  - [Peered VNET for access private cluster](#peered-vnet-for-access-private-cluster)
     - [Virtual machine for running code](#virtual-machine-for-running-code)
     - [Connect from localhost through VPN](#connect-from-localhost-through-vpn)
   - [Create Azure credentials](#create-azure-credentials)
@@ -15,7 +15,7 @@ CBS is created with terraform on MS Azure cloud.
 All needed sources except secrets and [some specific variable values](#Terraform-vars) can be found inside this repo.
 It is designed to be able to be moved to [the epiphany modules](https://github.com/epiphany-platform/epiphany/blob/develop/docs/home/COMPONENTS.md) as easy as possible.
 
-## Peered VNET for access to private cluster
+## Peered VNET for access private cluster
 
 One of the element of CBS is private AKS cluster.
 
