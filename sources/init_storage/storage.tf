@@ -1,4 +1,4 @@
-# Please remeber: if you decide to sote your TF state files on Azure storage ( what is the recomened way )
+# Please remeber: if you decide to store your TF state files on Azure storage ( which is the recomened way )
 #                 do not forget abut the needed backend.tf file ( follow the docs to find out how to create it )
 
 resource "azurerm_storage_account" "harbor_storage" {
