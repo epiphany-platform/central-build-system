@@ -1,5 +1,16 @@
 # How to create Central Build System (CBS)
 
+  - [Peered VNET for access to private cluster](#peered-vnet-for-access-to-private-cluster)
+    - [Virtual machine for running code](#virtual-machine-for-running-code)
+    - [Connect from localhost through VPN](#connect-from-localhost-through-vpn)
+  - [Create Azure credentials](#create-azure-credentials)
+  - [Install CBS itself](#install-cbs-itself)
+    - [Terraform state](#terraform-state)
+    - [Terraform vars](#terraform-vars)
+    - [Azure credentials](#azure-credentials)
+    - [Running terraform code](#running-terraform-code)
+  - [DNS names](#dns-names)
+
 CBS is created with terraform on MS Azure cloud.
 All needed sources except secrets and [some specific variable values](#Terraform-vars) can be found inside this repo.
 It is designed to be able to be moved to [the epiphany modules](https://github.com/epiphany-platform/epiphany/blob/develop/docs/home/COMPONENTS.md) as easy as possible.
@@ -113,9 +124,10 @@ This step is optional but highly recommended.
 Terraform state can be kept locally or - preferably - remotely in Azure blob storage account using the *azurerm* terraform backend.
 Instruction on how to create such storage account can be found [here](https://docs.microsoft.com/en-us/azure/developer/terraform/store-state-in-azure-storage).
 
-To keep the terraform state in Azure storage account please replace the below given example values with yours and then run:
+To keep the terraform state in Azure storage container please replace the below given example values with yours and then run:
 
 ```shell
+cd sources/init_storage
 echo """terraform {
   backend \"azurerm\" {
     resource_group_name  = \"StorageAccount-ResourceGroup\"
@@ -127,17 +139,16 @@ echo """terraform {
 """ > backend.tf
 ```
 
-Then run once again:
+Then run :
 
 ```shell
-cd build-system/technical/sources/terraform/
 terraform init
 ```
-
 The `backend.tf` file is ignored by git already so you do not have to worry that you will commit it by accident.<br>
-If the storage account already exists ( which is most likely the case if you've already created another enviroments ) 
-to be managed via Terraform this resource needs to be imported into the State file with this command:
-```terraform import azurerm_storage_account.harbor_storage <account_it>```
+
+Please notice, that above command needs to be run only once ( as this is initialization code.... ). If the storage account already exists ( which is most likely the case in the situation when you have already created another CBS enviroments within the subscription ) 
+this resource needs to be imported into the state file of the current enviroment in order to be managed via Terraform with following command:<br>
+```terraform import azurerm_storage_account.harbor_storage <azure_account_it>```
 <br><br>
 
 ### Terraform vars
