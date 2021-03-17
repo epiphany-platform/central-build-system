@@ -213,7 +213,7 @@ In both cases ( until we do not resolve feature/issue with DNS private zones ) y
 To determine values which should be put there please run below script, and put exact resource group name and kubernetes host in below format:
 
 ```shell
-../../modules/k8s/arecord.sh your-k8s-rg-name https://your-cluster-dns.some_hash.privatelink.region.azmk8s.io:443
+../modules/k8s/arecord.sh your-k8s-rg-name https://your-cluster-dns.some_hash.privatelink.region.azmk8s.io:443
 ```
 
 As an output you should get something like that:

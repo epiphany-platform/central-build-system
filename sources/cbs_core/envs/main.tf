@@ -1,5 +1,5 @@
 module "basic" {
-  source = "../../modules/basic"
+  source = "../modules/basic"
 
   name             = var.project_name
   size             = var.no_vms
@@ -11,7 +11,7 @@ module "basic" {
 }
 
 module "aks" {
-  source = "../../modules/aks"
+  source = "../modules/aks"
 
   name                         = "${var.project_name}-aks"
   rg_name                      = module.basic.rg_name
@@ -25,7 +25,7 @@ module "aks" {
 }
 
 module "peering" {
-  source = "../../modules/peering"
+  source = "../modules/peering"
 
   peering = var.peering
 
@@ -39,7 +39,7 @@ module "peering" {
 }
 
 module "k8s" {
-  source = "../../modules/k8s"
+  source = "../modules/k8s"
 
   kubeconfig       = module.aks.kubeconfig
   kube_host        = module.aks.kube_host
@@ -64,7 +64,7 @@ module "k8s" {
 }
 
 module "harbor" {
-  source = "../../modules/harbor"
+  source = "../modules/harbor"
 
   kube_host        = module.aks.kube_host
   kube_client_cert = module.aks.kube_client_cert
@@ -79,7 +79,7 @@ module "harbor" {
 }
 
 module "cbsbackup" {
-  source = "../../modules/cbsbackup"
+  source = "../modules/cbsbackup"
 
   kubeconfig       = module.aks.kubeconfig
   kube_host        = module.aks.kube_host
