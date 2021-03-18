@@ -206,7 +206,7 @@ terraform plan
 terraform apply # answer yes when prompted
 ```
 
-However, it is very likely that after some time terraform will fail.
+However, it is very likely that at some point in time terraform will fail.
 Depending on from which machine you're running terraform, you can come across several different issues.<br>
 If you're running it from your localhost you have to configure VPN client.
 In both cases ( until we do not resolve feature/issue with DNS private zones ) you have to manually update your `/etc/hosts` file.
