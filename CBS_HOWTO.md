@@ -63,7 +63,7 @@ vm_vnet_name = ""
 We can also take the send option and create VNET with Virtual Network Gateway and peer it with kubernetes VPN.
 
 Creation of this is out of CBS scope but below you can find directions which allow you to configure it in a correct way.<br>In this case you have to properly configure peering.
-In the VPN VNET peering you have to set below setting:
+In the VPN VNET peering you have to assure below setting:
 
 ```text
 Traffic to remote virtual network: Allow (default)
@@ -71,7 +71,7 @@ Traffic forwarded from remote virtual network: Allow (default)
 Virtual network gateway: Use this virtual network's gateway
 ```
 
-In the AKS VNET  peering you have to set below setting:
+In the peering section of thr VNET where your AKS cluster is installed you have to assure below setting:
 
 ```text
 Traffic to remote virtual network: Allow (default)
@@ -79,7 +79,7 @@ Traffic forwarded from remote virtual network: Allow (default)
 Virtual network gateway: Use the remote virtual network's gateway
 ```
 
-In the terraform code inside peering module this is already set.<br>
+In the CBS terraform code inside peering module above is already set.<br>
 <br>
 
 ## Create Azure credentials
