@@ -90,7 +90,3 @@ variable "argocd_ingress" {
 variable "tls_key_algorithm" {
   default = "RSA"
 }
-
-variable "aks-pvlink" {
-  type    = string
-}
