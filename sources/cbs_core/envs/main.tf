@@ -27,7 +27,7 @@ module "aks" {
 module "peering" {
   source = "../modules/peering"
 
-  peering = var.peering
+  peering = var.peeringon
 
   aks_rg_name   = module.basic.rg_name
   aks_vnet_id   = module.basic.vnet_id

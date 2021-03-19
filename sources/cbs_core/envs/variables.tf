@@ -31,7 +31,7 @@ variable "max_aks_nodes_number" {
 }
 
 ### PEERING VARS
-variable "peering" {
+variable "peeringon" {
   type    = bool
   default = true
 }
