@@ -116,3 +116,7 @@ variable "aad_integration_enabled" {
   type    = bool
   default = true
 }
+
+variable "cbs-vpn-networkid" {
+  type    = string
+}

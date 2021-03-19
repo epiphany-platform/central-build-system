@@ -22,6 +22,7 @@ module "aks" {
   client_secret                = data.azurerm_key_vault_secret.cbs_vault["client-secret"].value
   tenant_id                    = data.azurerm_key_vault_secret.cbs_vault["tenant-id"].value
   aad_admin_groups             = [data.azurerm_key_vault_secret.cbs_vault["aad-admin-groups"].value]
+  cbs-vpn-networkid            = data.azurerm_key_vault_secret.cbs_vault["cbs-vpn-networkid"].value
 }
 
 module "peering" {
@@ -40,13 +41,15 @@ module "peering" {
 
 module "k8s" {
   source = "../modules/k8s"
-
+ 
   kubeconfig       = module.aks.kubeconfig
   kube_host        = module.aks.kube_host
   kube_client_cert = module.aks.kube_client_cert
   kube_client_key  = module.aks.kube_client_key
   kube_cluster_ca  = module.aks.kube_cluster_ca
   peering_done     = module.peering.peering_done
+  aks-pvlink       = module.aks.kube_host
+
 
   argo_prefix               = data.azurerm_key_vault_secret.cbs_vault["argo-prefix"].value
   tekton_prefix             = data.azurerm_key_vault_secret.cbs_vault["tekton-prefix"].value
@@ -61,6 +64,7 @@ module "k8s" {
   subnet_id                 = module.basic.subnet_id[1]
   appgw_subnet_cidr         = module.basic.subnet_cidrs[1]
   secretJSON                = data.azurerm_key_vault_secret.cbs_vault["agic-json"].value
+  
 }
 
 module "harbor" {
