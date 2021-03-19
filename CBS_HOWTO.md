@@ -148,7 +148,10 @@ The `backend.tf` file is ignored by git already so you do not have to worry that
 
 Please notice, that above command needs to be run only once ( as this is initialization code.... ). If the storage account already exists ( which is most likely the case in the situation when you have already created another CBS enviroments within the subscription ) 
 this resource needs to be imported into the state file of the current enviroment in order to be managed via Terraform with following command:<br>
-```terraform import azurerm_storage_account.harbor_storage <azure_storageaccount_id>```
+```
+cd sources/init_storage
+terraform import azurerm_storage_account.harbor_storage <azure_storageaccount_id>
+```
 <br><br>
 
 ### Terraform vars
