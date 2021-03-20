@@ -89,7 +89,7 @@ resource "kubernetes_cron_job" "backup_job" {
             automount_service_account_token = true
             container {
               name              = "backupjob"
-              image             = "harbor.${var.domain}/public/cbsbackup:0.0.6"
+              image             = "harbor.cbs.hasops.com/public/cbsbackup:0.0.6"
               image_pull_policy = "IfNotPresent"
               env {
                 name  = "HARBOR_NS"
