@@ -22,7 +22,8 @@ data "azurerm_key_vault_secret" "cbs_vault" {
     "harbor-prefix",
     "harbor-tls-secret-name",
     "harbor-storage-account-name",
-    "harbor-storage-rg-name"
+    "harbor-storage-rg-name",
+    "harbor-version"
   ])
   name         = each.value
   key_vault_id = data.azurerm_key_vault.cbs.id

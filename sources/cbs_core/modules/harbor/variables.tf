@@ -50,3 +50,8 @@ variable "notary_url" {
   type    = string
   default = "notary.harbor.domain"
 }
+
+variable "harbor_version" {
+  type    = string
+  default = "1.3.6"
+}
