@@ -31,3 +31,16 @@ resource "kubernetes_service" "nginx_svc" {
     }
   }
 }
+
+resource "kubernetes_secret" "nginx_def_secret" {
+  metadata {
+    name      = var.nginx_secret
+    namespace = kubernetes_namespace.nginx_ns.metadata[0].name
+  }
+  type = "kubernetes.io/tls"
+  data = {
+    "tls.crt" = tls_self_signed_cert.cert.cert_pem
+    "tls.key" = tls_private_key.key.private_key_pem
+  }
+  lifecycle { ignore_changes = [data] }
+}
