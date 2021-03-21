@@ -9,7 +9,7 @@ resource "helm_release" "harbor" {
   timeout          = 900
 
   set {
-    name  = "expose.tls.secretName"
+    name  = "expose.tls.secret.secretName"
     value = var.harbor_tls_secret_name
   }
 
