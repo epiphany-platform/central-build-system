@@ -32,9 +32,9 @@ resource "helm_release" "prometheus" {
     value = "/"
   }
 
-  set {
-    name  = "prometheus.ingress.tls[0]"
-    value = "hosts"
-  }
+  # set {
+  #   name  = "prometheus.ingress.tls[0]"
+  #   value = "hosts"
+  # }
 }
 
