@@ -9,10 +9,10 @@ locals {
   frontend_pub_port_name             = "https_pub"
 }
 
-resource "azurerm_public_ip" "app_gw_pub_ip_priv" {
+resource "azurerm_public_ip" "app_gw_pub_ip" {
   allocation_method   = "Static"
   location            = var.location
-  name                = "${var.name}-pub_ip_priv"
+  name                = "${var.name}-pub_ip"
   resource_group_name = var.rg_name
   sku                 = "Standard"
 }
@@ -28,7 +28,7 @@ resource "azurerm_application_gateway" "api_gw" {
 
   frontend_ip_configuration {
     name                 = local.frontend_priv_pub_ip_configuration_name
-    public_ip_address_id = azurerm_public_ip.app_gw_pub_ip_priv.id
+    public_ip_address_id = azurerm_public_ip.app_gw_pub_ip.id
   }
 
   frontend_port {
