@@ -1,7 +1,7 @@
 data "azurerm_subscription" "current" {}
 
 resource "helm_release" "agic" {
-  name = "ingress-azure"
+  name = "ingress-azure-agic"
   chart = "ingress-azure"
   repository = "https://appgwingress.blob.core.windows.net/ingress-azure-helm-package/"
   version = "1.3.0"
@@ -59,7 +59,7 @@ resource "kubernetes_cluster_role_binding" "appgw-cluster-admin" {
   }
   subject {
     kind      = "ServiceAccount"
-    name      = "ingress-azure"
+    name      = "ingress-azure-agic"
     namespace = "default"
   }
 }
