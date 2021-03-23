@@ -43,12 +43,7 @@ resource "helm_release" "agic" {
 
   set {
     name = "rbac.enable"
-    value = "false"
-  }
-
-  tags = {
-    CreatedWhen = timestamp()
-    env = "tst"
+    value = "true"
   }
 
 }
