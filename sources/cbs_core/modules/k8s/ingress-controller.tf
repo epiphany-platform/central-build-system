@@ -46,6 +46,11 @@ resource "helm_release" "agic" {
     value = "false"
   }
 
+  tags = {
+    CreatedWhen = timestamp()
+    env = "tst"
+  }
+
 }
 
 resource "kubernetes_cluster_role_binding" "appgw-cluster-admin" {
