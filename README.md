@@ -4,8 +4,8 @@
 
 It was decided for Central Build System (CBS) to go with separate tool for building (*Continuous Integration*) and deploying (*Continuous Deployment*).
 
-For building we choose [tekton](tekton.dev), for deploying [ArgoCD](https://argoproj.github.io/argo-cd/).
-You can find more information in [Design Doc](https://github.com/epiphany-platform/epiphany/pull/1243).
+For building we choose [tekton](tekton.dev) and for deploying [ArgoCD](https://argoproj.github.io/argo-cd/).
+You can find more information in [Comparision of CI/CD tools](https://github.com/pprach/epiphany/blob/440c276cf22d873cc91478af4777ef714c8c1642/docs/design-docs/cicd-server/comparision_cicd.md) doc.
 
 ## Architecture diagram
 
@@ -23,10 +23,7 @@ Also this VNET is responsible for allowing external requests - like github webho
 
 ### Build system VNET
 
-This VNET is core of build system.
-In this VNET we plan to create [epiphany](https://github.com/epiphany-platform/epiphany) cluster which will use AKS (Azure Kubernetes Services).
-We would like to use it because we predict that cluster will be used extensively and we want to scale the number of workers easily.
-This will be easier to achieve with AKS.
+This VNET is core network of build system. All the essential components of AKS kubernetes cluster are deployed in this network.
 
 ### Tekton
 
