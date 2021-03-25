@@ -153,25 +153,38 @@ this resource needs to be imported into the state file of the current enviroment
 cd sources/init_storage
 terraform import azurerm_storage_account.harbor_storage <azure_storageaccount_id>
 ```
-<br><br>
+<br>
 
 ### Terraform vars
 
-For build system creation terraform needs you to put all values for the below variables related mainly to your [SP](https://docs.microsoft.com/en-us/azure/active-directory/develop/app-objects-and-service-principals#service-principal-object) details.
-You can do this with this command:
+For CBS terraform build to succeed, you need to set some variables with the correct values. In order to comply with security best practices we decided to keep these values in Azure Key Vault service. The KV needs to be prepared manually ( we will automate it [in the future](https://github.com/epiphany-platform/central-build-system/issues/20) ).<br>
+The KV needs to be created in ```cbs-tools-rg``` resource group and the following variables need to be set there:<br>
+   - address-space
+   - aad-admin-groups
+   - agic-json
+   - argo-prefix
+   - argocd-admin-password
+   - cbs-vpn-networkid
+   - cbs-vpngateway-caCert
+   - cbs-vpngateway-caKey
+   - location
+   - client-id
+   - client-secret
+   - tenant-id
+   - aad-admin-groups
+   - vm-rg-name
+   - vm-vnet-id
+   - vm-vnet-name
+   - argo-prefix
+   - tekton-prefix
+   - domain
+   - tekton-operator-container
+   - harbor-prefix
+   - harbor-tls-secret-name
+   - harbor-storage-account-name
+   - harbor-storage-rg-name
+   - harbor-version
 
-```shell
-echo """project_name     = \"your_project_name\" 
-location         = \"your_location\"
-client_id        = \"AzureApplication_appId\"
-client_secret    = \"AzureApplication_password\"
-tenant_id        = \"AzureTenantId\"
-aad_admin_groups = [\"Azure_AD_group_id\"]   # 
-argo_prefix      = \"argocd-prefix\"
-tekton_prefix    = \"tekton-prefix\"
-domain           = \"your.domain\"
-""" > terraform.tfvars
-```
 Legend:<br>
 *aad_admin_groups - (Optional) A list of Object IDs of Azure Active Directory Groups which should have Admin Role on the Cluster.*<br>
 *argo/tekton_prefix - domain prefix for ArgoCD/Tekton* 
@@ -188,7 +201,7 @@ vm_vnet_id = \"your_vnet_id\"
 vm_vnet_name = \"your_vnet_name\"
 """ >> terraform.tfvars
 ```
-Even if you've decided to follow the [VPN based](#connect-from-localhost-through-vpn) CBS installation procedure the above ```vn_.....``` variables will be needed for successful CBS installation. In such scenario, they should just point to your respectable VPN network values.<br>
+Even if you've decided to follow the [VPN based](#connect-from-localhost-through-vpn) CBS installation procedure the above ```vn_.....``` variables will be needed for successful CBS installation. In such scenario, they should just point to your respectable VPN network values.<br><br>
 
 ### Azure credentials
 
