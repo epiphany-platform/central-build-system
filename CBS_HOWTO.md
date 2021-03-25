@@ -50,13 +50,14 @@ terraform apply #type yes
 
 As an output you get a public IP of created VM. Please login to this vm as user `azureuser` using the ssh key from `~/.ssh/` direcory. If you don't have such key, please create one.
 
-In the output you will also get three another lines which we will use later:
-
+In the output you will also get three another lines:
 ```shell
 vm_rg_name = ""
 vm_vnet_id = ""
 vm_vnet_name = ""
 ```
+that we will use later on.<br>
+
 
 ### Connect from localhost through VPN
 
@@ -187,6 +188,7 @@ vm_vnet_id = \"your_vnet_id\"
 vm_vnet_name = \"your_vnet_name\"
 """ >> terraform.tfvars
 ```
+Even if you've decided to follow the [VPN based](#connect-from-localhost-through-vpn) CBS installation procedure the above ```vn_.....``` variables will be needed for successful CBS installation. In such scenario, they should just point to your respectable VPN network values.<br>
 
 ### Azure credentials
 

@@ -1,4 +1,7 @@
-resource "azurerm_virtual_network_peering" "vm_to_aks" {
+# vmvnet_to_aks and aks_to_vmvnet resources can have the values of VPN network
+# depending on your choice of way to connet the enviroment ( check out the docs )
+
+resource "azurerm_virtual_network_peering" "vmvnet_to_aks" {
   count                     = var.peering ? 1 : 0
   name                      = "${var.vm_rg_name}---${var.aks_rg_name}"
   remote_virtual_network_id = var.aks_vnet_id
@@ -8,7 +11,7 @@ resource "azurerm_virtual_network_peering" "vm_to_aks" {
   allow_forwarded_traffic   = true
 }
 
-resource "azurerm_virtual_network_peering" "aks_to_vm" {
+resource "azurerm_virtual_network_peering" "aks_to_vmvnet" {
   count                     = var.peering ? 1 : 0
   name                      = "${var.vm_rg_name}---${var.aks_rg_name}"
   remote_virtual_network_id = var.vm_vnet_id
