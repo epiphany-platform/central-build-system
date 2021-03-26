@@ -11,11 +11,7 @@ crash.log
 
 # Credentials files
 *backend.tf*
-<<<<<<< Updated upstream
 *tf_kubeconfig*
-=======
-*azure.tf*
->>>>>>> Stashed changes
 
 # Ignore any .tfvars files that are generated automatically for each Terraform run. Most
 # .tfvars files are managed as part of configuration and so should be included in
