@@ -38,6 +38,19 @@ for ns in ${NAMESPACES};do
   done
 done
 
+echo "Dump tekton role and rolebinding object definitions"
+NAMESPACES="tekton-pipelines"
+RESOURCES=$(kubectl api-resources --verbs=list --namespaced -o name | grep role | xargs -n 1 kubectl get --show-kind --ignore-not-found -n  tekton-pipelines | awk '{print $1}' | grep -v NAME)
+
+for ns in ${NAMESPACES};do
+  for resource in ${RESOURCES};do
+    dir="backup/${ns}"
+    mkdir -p "${dir}"
+    resource_path=$(echo $resource | sed "s/\//_/g")
+    kubectl -n ${ns} get -o yaml ${resource} > "${dir}/${resource_path}.yaml"
+  done
+done
+
 echo "Upload backup to $STORAGE"
 LINK="https://$STORAGE.blob.core.windows.net/$CONTAINER/`date +%F`/$SAS"
 azcopy copy --recursive ./backup/ $LINK
