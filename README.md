@@ -2,7 +2,7 @@
 
 ## Design
 
-Central Build System (CBS) is made up of two modern software components: one for building (*Continuous Integration*) and one for deploying (*Continuous Deployment*).
+Central Build System (CBS) is made up of two software components: one for building (*Continuous Integration*) and one for deploying (*Continuous Deployment*).
 
 For building we chose [tekton](tekton.dev) and for deploying - [ArgoCD](https://argoproj.github.io/argo-cd/).
 You can find more information in [Comparision of CI/CD tools](https://github.com/pprach/epiphany/blob/440c276cf22d873cc91478af4777ef714c8c1642/docs/design-docs/cicd-server/comparision_cicd.md) doc.
