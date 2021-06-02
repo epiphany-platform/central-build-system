@@ -259,4 +259,4 @@ So it is mandatory to configure DNS names used to resolve both ArgoCD and Tekton
 <br/>
 
 ## Useful tools 
-After a successful deployment of your CBS environment instance, you will most probably want to automate some of the recurrent administration routines. So we did and this is why we worked out some solutions that one can find useful. You can explore them in the [tools directory](https://github.com/epiphany-platform/central-build-system/tools/) of this repo.
+After a successful deployment of your CBS environment instance, you will most probably want to automate some of the recurrent administration routines. So we did and this is why we worked out some solutions that one can find useful. You can explore them in the [tools directory](https://github.com/epiphany-platform/central-build-system/tree/feat/tools/tools) of this repo.
