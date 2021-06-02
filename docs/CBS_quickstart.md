@@ -11,6 +11,7 @@
     - [Azure credentials](#azure-credentials)
     - [Running terraform code](#running-terraform-code)
   - [DNS names](#dns-names)
+  - [Useful tools](#useful-tools)
 
 <br>
 CBS is created with terraform on MS Azure cloud.
@@ -254,3 +255,8 @@ terraform apply
 
 ArgoCD and Tekton can be accessed by Ingress.
 So it is mandatory to configure DNS names used to resolve both ArgoCD and Tekton to the correct LoadBalncer IP.
+  
+<br/>
+
+## Useful tools 
+After a successful deployment of your CBS environment instance, you will most probably want to automate some of the recurrent administration routines. So we did and this is why we worked out some solutions that one can find useful. You can explore them in the [tools directory](https://github.com/epiphany-platform/central-build-system/tools/) of this repo.
