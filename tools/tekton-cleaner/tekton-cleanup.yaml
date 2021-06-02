@@ -1,0 +1,48 @@
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tkn-cleaner
+  namespace: tekton-pipelines
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: tkn-cleaner
+rules:
+  - apiGroups: ["tekton.dev"]
+    resources: ["pipelineruns"]
+    verbs: ["delete", "get", "watch", "list"]
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: cleaner-to-cleaner
+  namespace: tekton-pipelines
+roleRef:
+  kind: ClusterRole
+  name: tkn-cleaner
+  apiGroup: rbac.authorization.k8s.io
+subjects:
+  - kind: ServiceAccount
+    name: tkn-cleaner
+    namespace: tekton-pipelines
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: cleanup-pipelineruns
+  namespace: tekton-pipelines
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          serviceAccount: tkn-cleaner
+          containers:
+            - name: kubectl
+              image: harbor.cbs.hasops.com/public/tkn:cleaner.05
+              args: ["5"]   # All older pipelines will be deleted. The age is expressed in weeks.
