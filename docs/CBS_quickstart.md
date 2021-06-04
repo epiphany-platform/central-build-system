@@ -116,7 +116,7 @@ Otherwise integration between ArgoCD and Azure AD will not work.
 Please clone the repository to the machine that can reach Kubernetes cluster and run terraform code.
 
 ```shell
-cd build-system/sources/terraform/envs/prod
+cd build-system/sources/core/envs/prod
 terraform init
 ```
 
