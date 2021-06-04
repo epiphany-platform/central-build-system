@@ -44,5 +44,5 @@ spec:
           serviceAccount: tkn-cleaner
           containers:
             - name: kubectl
-              image: harbor.cbs.hasops.com/public/tkn:cleaner.05
+              image: <your_docker_reg_url>:<your_docker_reg_tag>
               args: ["5"]   # All older pipelines will be deleted. The age is expressed in weeks.
