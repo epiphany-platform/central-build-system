@@ -1,6 +1,6 @@
 #!/bin/bash
 
-JAKI_NS=cert-manager
+SP_NAMESPACE_NAME=cert-manager
 AZURE_CERT_MANAGER_NEW_SP_NAME=cbs-dnschallenge-sp
 AZURE_DNS_ZONE_RESOURCE_GROUP=cbs-dns-rg
 AZURE_DNS_ZONE=dnszone.example.com
@@ -18,7 +18,7 @@ az role assignment create --assignee $AZURE_CERT_MANAGER_SP_APP_ID --role "DNS Z
 
 az role assignment list --all --assignee $AZURE_CERT_MANAGER_SP_APP_ID
 
-kubectl create secret generic -n $JAKI_NS azuredns-config --from-literal=client-secret=$AZURE_CERT_MANAGER_SP_PASSWORD
+kubectl create secret generic -n $SP_NAMESPACE_NAME azuredns-config --from-literal=client-secret=$AZURE_CERT_MANAGER_SP_PASSWORD
 
 echo "AZURE_CERT_MANAGER_SP_APP_ID: $AZURE_CERT_MANAGER_SP_APP_ID"
 echo "AZURE_CERT_MANAGER_SP_PASSWORD: $AZURE_CERT_MANAGER_SP_PASSWORD"
