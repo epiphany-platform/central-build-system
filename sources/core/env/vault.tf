@@ -1,5 +1,5 @@
 data "azurerm_key_vault" "cbs" {
-  name                = "cbs-prod"     //var.keyvault_name
+  name                = "cbs-${var.enviroment}-kv"     //var.keyvault_name
   resource_group_name = "cbs-tools-rg" //var.keyvault_rg
 }
 
