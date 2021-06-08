@@ -7,13 +7,13 @@ resource "azurerm_storage_account" "harbor_storage" {
 }
 
 resource "azurerm_storage_container" "harbor_container" {
-  name                  = "vhds"
+  name                  = "cbs-${var.enviroment}-vhds"
   storage_account_name  = azurerm_storage_account.harbor_storage.name
   container_access_type = "private"
 }
 
 resource "azurerm_storage_container" "cbs_backup" {
-  name                  = "cbsbackup"
+  name                  = "cbs-${var.enviroment}-backup"
   storage_account_name  = azurerm_storage_account.harbor_storage.name
   container_access_type = "private"
 }
