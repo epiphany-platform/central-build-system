@@ -1,6 +1,6 @@
 resource "azurerm_public_ip" "pubip" {
   count                   = var.use_public_ip != true ? 0 : var.instances
-  name                    = "${var.name}-${var.service}-${count.index}-pubip"
+  name                    = "cbs-${var.name}-${var.service}-${count.index}-pubip"
   location                = var.location
   resource_group_name     = var.rg_name
   allocation_method       = "Static"
@@ -10,7 +10,7 @@ resource "azurerm_public_ip" "pubip" {
 
 resource "azurerm_network_interface" "nic" {
   count                         = var.instances
-  name                          = "${var.name}-${var.service}-${count.index}-nic"
+  name                          = "cbs-${var.name}-${var.service}-${count.index}-nic"
   location                      = var.location
   resource_group_name           = var.rg_name
   enable_accelerated_networking = "false"
@@ -50,7 +50,7 @@ resource "azurerm_network_interface_security_group_association" "nic-nsg-assoc" 
 
 resource "azurerm_linux_virtual_machine" "vm" {
   count                 = var.instances
-  name                  = "${var.name}-${var.service}-${count.index}"
+  name                  = "cbs-${var.name}-${var.service}-${count.index}"
   location              = var.location
   resource_group_name   = var.rg_name
   size                  = var.vm_size
@@ -73,7 +73,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
   }
 
   os_disk {
-    name                 = "${var.name}-${var.service}-${count.index}-disk"
+    name                 = "cbs-${var.name}-${var.service}-${count.index}-disk"
     caching              = "ReadWrite"
     disk_size_gb         = "32"
     storage_account_type = "Premium_LRS"
