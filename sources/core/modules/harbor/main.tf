@@ -2,7 +2,7 @@ resource "helm_release" "harbor" {
   name       = "harbor"
   repository = "https://helm.goharbor.io"
   chart      = "harbor"
-  version    = "1.3.6"
+  version    = var.harbor_version
 
   namespace        = var.namespace
   create_namespace = true
