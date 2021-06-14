@@ -3,10 +3,6 @@ variable "enviroment" {
   default = "tst"
 }
 
-variable project_name {
-  type = string
-}
-
 variable "key_path" {
   default = "shared/.pub"
 }

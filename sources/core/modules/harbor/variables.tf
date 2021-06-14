@@ -21,7 +21,7 @@ variable "storage_container_name" {
   description = "Container for harbor blobs"
 }
 
-variable "project_name" {
+variable "enviroment" {
   type    = string
   default = "cbs-harbor"
 }
