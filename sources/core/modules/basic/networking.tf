@@ -8,7 +8,7 @@ resource "azurerm_virtual_network" "vnet" {
 resource "azurerm_subnet" "subnet" {
   count                = pow(2, var.bits_for_subnets)
 
-  name                 = "cbs-${var.name}-snet-${count.index}"
+  name                 = "cbs-${var.name}-snet-${count.index}-snet"
   address_prefixes     = [cidrsubnet(var.address_space, var.bits_for_subnets, count.index)]
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet.name
