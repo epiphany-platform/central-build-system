@@ -64,7 +64,7 @@ resource "azurerm_network_interface_security_group_association" "nic-nsg-assoc" 
 }
 
 resource "azurerm_linux_virtual_machine" "vm" {
-  name                  = "${var.name}"
+  name                  = cbs-"${var.name}-vm"
   location              = var.location
   resource_group_name   = azurerm_resource_group.rg.name
   size                  = "Standard_D1_v2"
