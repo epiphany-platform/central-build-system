@@ -86,8 +86,6 @@ module "cbsbackup" {
   kube_client_cert = module.aks.kube_client_cert
   kube_client_key  = module.aks.kube_client_key
   kube_cluster_ca  = module.aks.kube_cluster_ca
-  domain           = data.azurerm_key_vault_secret.cbs_vault["domain"].value
-
   harbor_namespace = "harbor"
   argocd_namespace = "argocd"
   storage_name     = azurerm_storage_account.harbor_storage.name
