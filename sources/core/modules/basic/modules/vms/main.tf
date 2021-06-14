@@ -50,7 +50,7 @@ resource "azurerm_network_interface_security_group_association" "nic-nsg-assoc" 
 
 resource "azurerm_linux_virtual_machine" "vm" {
   count                 = var.instances
-  name                  = "cbs-${var.name}-${var.service}-${count.index}"
+  name                  = "cbs-${var.name}-${var.service}-${count.index}-vm"
   location              = var.location
   resource_group_name   = var.rg_name
   size                  = var.vm_size
