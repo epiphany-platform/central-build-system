@@ -32,7 +32,3 @@ variable "storage_name" {
 variable "container_name" {
   type    = string
 }
-
-variable "domain" {
-  type   = string
-}
