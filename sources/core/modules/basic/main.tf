@@ -3,7 +3,7 @@ resource "azurerm_resource_group" "rg" {
   location = var.location
    
   tags = {
-    env = var.name
+    Env = var.name
     CreatedWhen = timestamp()
   }
 }

@@ -37,7 +37,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
   }
 
   tags = {
-    env = var.name
+    Env = var.name
     CreatedWhen = timestamp()
   }
 
