@@ -36,6 +36,11 @@ resource "azurerm_kubernetes_cluster" "aks" {
     }
   }
 
+  tags = {
+    Env = var.name
+    CreatedWhen = timestamp()
+  }
+
   addon_profile {
     aci_connector_linux {
       enabled = false
@@ -53,4 +58,8 @@ resource "azurerm_kubernetes_cluster" "aks" {
       enabled = false
     }
   }
+}
+
+output "pvlink_ready" {
+  value = "true"
 }

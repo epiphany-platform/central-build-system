@@ -1,3 +1,8 @@
+resource "null_resource" "test_if_peering_done" {
+  provisioner "local-exec" {
+    command = "echo Peering was done: \"${var.peering_done}\""
+  }
+}
 resource "null_resource" "kube_config_create" {
   provisioner "local-exec" {
     command = "echo \"${var.kubeconfig}\" > tf_kubeconfig"

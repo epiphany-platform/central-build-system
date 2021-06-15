@@ -1,6 +1,6 @@
 ### BASIC VARS
-variable project_name {
-  type = string
+variable "enviroment" {
+  default = "tst"
 }
 
 variable "key_path" {

@@ -1,19 +1,19 @@
 resource "azurerm_storage_account" "harbor_storage" {
   name                     = data.azurerm_key_vault_secret.cbs_vault["harbor-storage-account-name"].value
-  resource_group_name      = module.basic.rg_name
+  resource_group_name      = data.azurerm_key_vault_secret.cbs_vault["harbor-storage-rg-name"].value
   location                 = data.azurerm_key_vault_secret.cbs_vault["location"].value
   account_tier             = "Standard"
   account_replication_type = "LRS"
 }
 
 resource "azurerm_storage_container" "harbor_container" {
-  name                  = "vhds"
+  name                  = "cbs-${var.enviroment}-vhds"
   storage_account_name  = azurerm_storage_account.harbor_storage.name
   container_access_type = "private"
 }
 
 resource "azurerm_storage_container" "cbs_backup" {
-  name                  = "cbsbackup"
+  name                  = "cbs-${var.enviroment}-backup"
   storage_account_name  = azurerm_storage_account.harbor_storage.name
   container_access_type = "private"
 }

@@ -1,7 +1,7 @@
 module "basic" {
   source = "../modules/basic"
 
-  name             = var.project_name
+  name             = var.enviroment
   size             = var.no_vms
   use_public_ip    = var.use_public_ips
   rsa_pub_path     = var.key_path
@@ -13,7 +13,7 @@ module "basic" {
 module "aks" {
   source = "../modules/aks"
 
-  name                         = var.project_name
+  name                         = "cbs-${var.enviroment}-aks"
   rg_name                      = module.basic.rg_name
   subnet_id                    = module.basic.subnet_id[0]
   default_node_pool_max_number = var.max_aks_nodes_number
@@ -56,7 +56,7 @@ module "k8s" {
   tekton_operator_container = data.azurerm_key_vault_secret.cbs_vault["tekton-operator-container"].value
   kubernetes_subnet_cidr    = module.basic.subnet_cidrs[0]
   location                  = data.azurerm_key_vault_secret.cbs_vault["location"].value
-  name                      = "${var.project_name}-appgw"
+  name                      = "${var.enviroment}-appgw"
   rg_name                   = module.basic.rg_name
   subnet_id                 = module.basic.subnet_id[1]
   appgw_subnet_cidr         = module.basic.subnet_cidrs[1]
@@ -86,7 +86,6 @@ module "cbsbackup" {
   kube_client_cert = module.aks.kube_client_cert
   kube_client_key  = module.aks.kube_client_key
   kube_cluster_ca  = module.aks.kube_cluster_ca
-
   harbor_namespace = "harbor"
   argocd_namespace = "argocd"
   storage_name     = azurerm_storage_account.harbor_storage.name

@@ -21,7 +21,7 @@ variable "storage_container_name" {
   description = "Container for harbor blobs"
 }
 
-variable "project_name" {
+variable "enviroment" {
   type    = string
   default = "cbs-harbor"
 }
@@ -49,4 +49,9 @@ variable "harbor_url" {
 variable "notary_url" {
   type    = string
   default = "notary.harbor.domain"
+}
+
+variable "harbor_version" {
+  type    = string
+  default = "1.6.2"
 }

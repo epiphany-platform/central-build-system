@@ -12,7 +12,7 @@ locals {
 resource "azurerm_public_ip" "app_gw_pub_ip_priv" {
   allocation_method   = "Static"
   location            = var.location
-  name                = "${var.name}-pub_ip_priv"
+  name                = "cbs-${var.name}-pub_ip_priv"
   resource_group_name = var.rg_name
   sku                 = "Standard"
 }
