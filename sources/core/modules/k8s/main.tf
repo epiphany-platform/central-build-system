@@ -38,6 +38,14 @@ resource "null_resource" "argocd" {
   depends_on = [null_resource.kube_config_create, kubernetes_namespace.argocd_ns, kubernetes_config_map.argocd_cm]
 }
 
+resource "null_resource" "OIDC_secret" {
+  provisioner "local-exec" {
+    command = "cat <<EOF | kubectl apply --kubeconfig tf_kubeconfig -f - \n${templatefile("${path.module}/manifests/argocd-secret.tmpl", { CLIENT_SECRET = base64encode(var.client_secret) })}"
+  }
+
+  depends_on = [null_resource.kube_config_create, null_resource.argocd, kubernetes_namespace.argocd_ns, kubernetes_config_map.argocd_cm]
+}
+
 #TODO Remove this when each team will have it's own tekton
 resource "null_resource" "tekton_global_dashboard" {
   provisioner "local-exec" {
@@ -80,5 +88,5 @@ resource "null_resource" "kube_config_destroy" {
     always_run = timestamp()
   }
 
-  depends_on = [null_resource.argocd, null_resource.tekton_crd, null_resource.tekton-triggers, null_resource.kube_config_create, null_resource.operator, null_resource.nginx_ingress]
+  depends_on = [null_resource.argocd, null_resource.OIDC_secret, null_resource.tekton_crd, null_resource.tekton-triggers, null_resource.kube_config_create, null_resource.operator, null_resource.nginx_ingress]
 }

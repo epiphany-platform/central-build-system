@@ -53,6 +53,7 @@ module "k8s" {
   domain                    = data.azurerm_key_vault_secret.cbs_vault["domain"].value
   tenant_id                 = data.azurerm_key_vault_secret.cbs_vault["tenant-id"].value
   client_id                 = data.azurerm_key_vault_secret.cbs_vault["client-id"].value
+  client_secret             = data.azurerm_key_vault_secret.cbs_vault["client-secret"].value
   tekton_operator_container = data.azurerm_key_vault_secret.cbs_vault["tekton-operator-container"].value
   kubernetes_subnet_cidr    = module.basic.subnet_cidrs[0]
   location                  = data.azurerm_key_vault_secret.cbs_vault["location"].value

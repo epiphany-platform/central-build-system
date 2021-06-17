@@ -22,6 +22,8 @@ variable "tenant_id" {}
 
 variable "client_id" {}
 
+variable "client_secret" {}
+
 variable "tekton_operator_container" {}
 
 variable "location" {}
