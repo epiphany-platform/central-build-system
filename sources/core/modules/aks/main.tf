@@ -5,6 +5,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
   dns_prefix              = var.dns_prefix
   private_cluster_enabled = var.private_cluster
   kubernetes_version      = var.kubernetes_version
+  
   default_node_pool {
     name                = substr(join("", [replace(var.name, "-", ""), "dnp"]), 0, 12)
     vm_size             = var.default_node_pool_vm_size

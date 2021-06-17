@@ -62,7 +62,6 @@ variable "private_cluster" {
 
 variable "kubernetes_version" {
   type        = string
-  default     = "1.18.17"
   description = "your kubernetes version"
 }
 
