@@ -22,6 +22,7 @@ module "aks" {
   client_secret                = data.azurerm_key_vault_secret.cbs_vault["client-secret"].value
   tenant_id                    = data.azurerm_key_vault_secret.cbs_vault["tenant-id"].value
   aad_admin_groups             = [data.azurerm_key_vault_secret.cbs_vault["aad-admin-groups"].value]
+  kubernetes_version           = data.azurerm_key_vault_secret.cbs_vault["kubernetes-version"].value
 }
 
 module "peering" {
@@ -74,6 +75,7 @@ module "harbor" {
 
   harbor_url                 = "${var.harbor_prefix}.${data.azurerm_key_vault_secret.cbs_vault["domain"].value}"
   notary_url                 = "${var.notary_prefix}.${data.azurerm_key_vault_secret.cbs_vault["domain"].value}"
+  harbor_version             = data.azurerm_key_vault_secret.cbs_vault["harbor-version"].value
   storage_account_name       = azurerm_storage_account.harbor_storage.name
   storage_primary_access_key = azurerm_storage_account.harbor_storage.primary_access_key
   storage_container_name     = azurerm_storage_container.harbor_container.name
